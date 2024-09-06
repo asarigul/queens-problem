@@ -4,44 +4,40 @@ import java.util.stream.Collectors;
 
 public class Board {
     // 1 row = 1 String
-    private final List<String> data;
+    private final List<String> rows;
 
     public Board(int size) {
         this(size, ".");
     }
 
     private Board(int size, String emptyCellVal) {
-        this.data = new ArrayList<>(size);
+        this.rows = new ArrayList<>(size);
 
         for (int i = 0; i < size; i++) {
-            data.add(emptyCellVal.repeat(size));
+            rows.add(emptyCellVal.repeat(size));
         }
     }
 
     private Board(List<String> data) {
-        this.data = data;
+        this.rows = data;
     }
 
     public void print() {
-        for(int i = 0; i < data.size(); i++) {
-            System.out.println(data.get(i));
+        for (int i = 0; i < rows.size(); i++) {
+            System.out.println(rows.get(i));
         }
     }
 
     public int size() {
-        return data.size();
+        return rows.size();
     }
 
     public List<String> data() {
-        return this.data;
-    }
-
-    public List<String> dataCopy() {
-        return this.data.stream().map(s -> new String(s)).collect(Collectors.toList());
+        return this.rows;
     }
 
     public Board copy() {
-        return new Board(this.dataCopy());
+        return new Board(this.rows.stream().map(s -> new String(s)).collect(Collectors.toList()));
     }
 
     public void putQueen(int row, int column) {
@@ -53,8 +49,8 @@ public class Board {
     }
 
     private void put(int row, int column, char c) {
-        char[] s = this.data.get(row).toCharArray();
+        char[] s = this.rows.get(row).toCharArray();
         s[column] = c;
-        this.data.set(row, String.valueOf(s)) ;
+        this.rows.set(row, String.valueOf(s));
     }
 }
