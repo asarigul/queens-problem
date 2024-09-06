@@ -39,14 +39,14 @@ public class NQueensSolver {
             }
 
             // put Queen here
-            tryThisCell(row, column);
+            placeQueen(row, column);
 
             // recursively try next row
             placeQueenInRow(row + 1);
 
             // remove the queen that was just placed in the current column for the previous
             // row and explore other column options in that row
-            undo(row, column);
+            removeQueen(row, column);
         }
     }
 
@@ -56,7 +56,7 @@ public class NQueensSolver {
                 leftDiagonals.contains(row - column);
     }
 
-    private void tryThisCell(int row, int column) {
+    private void placeQueen(int row, int column) {
         columns.add(column);
         rightDiagonals.add(row + column);
         leftDiagonals.add(row - column);
@@ -64,7 +64,7 @@ public class NQueensSolver {
         board.putQueen(row, column);
     }
 
-    private void undo(int row, int column) {
+    private void removeQueen(int row, int column) {
         columns.remove(column);
         rightDiagonals.remove(row + column);
         leftDiagonals.remove(row - column);
