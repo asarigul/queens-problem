@@ -34,7 +34,7 @@ Backtracking (https://en.wikipedia.org/wiki/Backtracking) includes 3 steps:
 - Explore: Explore the chosen path
 - Backtrack: If the chosen path doesn't lead to a solution, backtrack to a previous state and try another path
 
-On the first row, we can place a queen in 1st, 2nd, ..., nth columns. We can start the first cell (1st column on the 1st row). We can't place the queen in the 1st column, or any other cell that are on the same diagonal (ie: 2nd column). 
+On the first row, we can place a queen in 1st, 2nd, ..., nth columns. We can start the first cell (1st column on the 1st row). For the 2nd row, we can't place the queen in the 1st column or any other cell that are on the same diagonal (ie: 2nd column). 
 
 There are two possiblities for diagonals. For the cells on the positive (or the right) diagonal, difference of x and y coordinates stay same. For example: (2,1) and (3,2). For the other diagonal the sum of them stays the same. For example: (2,1) and (1,2).
 
