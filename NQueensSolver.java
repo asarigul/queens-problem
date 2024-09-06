@@ -19,21 +19,22 @@ public class NQueensSolver {
         this.board = new Board(boardSize);
     }
 
-    private List<Board> solve() {
-        tryRow(0);
+    private List<Board> findAllSolutions() {
+        placeQueenInRow(0);
         return result;
     }
 
-    private void tryRow(int row) {
+    private void placeQueenInRow(int row) {
         // tried Queen in the last row => a valid solution
         if (row == this.board.size()) {
             result.add(board.copy());
+            // end recursive calls for tried path
             return;
         }
 
         for (int column = 0; column < board.size(); column++) {
             // skip if this column used before or on a diagonal used before
-            if (isOnTheSameColumnOrDiagonal(row, column)) {
+            if (isUnderAttack(row, column)) {
                 continue;
             }
 
@@ -41,14 +42,15 @@ public class NQueensSolver {
             tryThisCell(row, column);
 
             // recursively try next row
-            tryRow(row + 1);
+            placeQueenInRow(row + 1);
 
-            // didn't work => remove
+            // remove the queen that was just placed in the current column for the previous
+            // row and explore other column options in that row
             undo(row, column);
         }
     }
 
-    private boolean isOnTheSameColumnOrDiagonal(int row, int column) {
+    private boolean isUnderAttack(int row, int column) {
         return columns.contains(column) || //
                 rightDiagonals.contains(row + column) || //
                 leftDiagonals.contains(row - column);
@@ -71,7 +73,7 @@ public class NQueensSolver {
     }
 
     public static void main(String[] args) {
-        List<Board> solutions = new NQueensSolver(4).solve();
+        List<Board> solutions = new NQueensSolver(4).findAllSolutions();
         List<List<String>> toExpectedOutput = solutions.stream().map(Board::data).collect(Collectors.toList());
         System.out.println(toExpectedOutput);
     }
