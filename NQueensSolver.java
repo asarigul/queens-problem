@@ -33,7 +33,8 @@ public class NQueensSolver {
 
         for(int column = 0; column < board.size(); column++) {
             // skip if on the same column, or on the same diagonals
-            if(columns.contains(column) || leftDiagonals.contains(row + column) || rightDiagonals.contains(row -column)) {
+            if (columns.contains(column) || rightDiagonals.contains(row + column)
+                    || leftDiagonals.contains(row - column)) {
                 continue;
             }
 
